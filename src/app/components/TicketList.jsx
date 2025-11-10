@@ -1,25 +1,29 @@
-'use client';
-import TicketCard from './TicketCard';
+"use client";
+
+import TicketCard from "./TicketCard";
 
 export default function TicketList({ tickets = [], queue = [], onAddToQueue = () => {} }) {
- 
-  const queuedIds = new Set(queue.map((t) => (typeof t === 'string' ? t : t.id)));
+  const queuedIds = new Set(
+    Object.keys(queue));
 
   if (!tickets.length) {
-    return <p className="text-sm text-gray-400">TicketList placeholder</p>;
+    return (
+      <p className="status-msg" role="status">
+        No tickets match your filters.
+      </p>
+    );
   }
 
   return (
-    <ul className="mt-4 space-y-3">
+    <section className="tickets-grid" aria-label="Tickets">
       {tickets.map((t) => (
         <TicketCard
-          key={t.id}            
+          key={t.id}
           ticket={t}
-          inQueue={queuedIds.has(t.id)}
+          queued={queuedIds.has(t.id)}
           onAdd={onAddToQueue}
         />
       ))}
-    </ul>
+    </section>
   );
 }
-

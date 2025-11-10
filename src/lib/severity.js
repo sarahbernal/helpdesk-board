@@ -1,5 +1,3 @@
-// Named exports used for sorting/validation/etc.
-
 export const priorityOrder = {
   Low: 0,
   Medium: 1,

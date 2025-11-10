@@ -9,49 +9,19 @@ import SearchBox from './SearchBox.jsx';
 import MyQueueSummary from './MyQueueSummary.jsx';
 import StatusMessage from './StatusMessage.jsx';
 
-useEffect(() => {
-  const statusSeq = ["Open", "In Progress", "On Hold", "Resolved"];
-  const prioritySeq = ["Low", "Medium", "High", "Critical"];
-
-  const nextIn = (arr, cur) => {
-    const i = arr.indexOf(cur);
-    return arr[(i + 1) % arr.length];
-  };
-
-  const interval = setInterval(() => {
-    setTickets(prev => {
-      if (!prev.length) return prev;
-
-      const i = Math.floor(Math.random() * prev.length);
-      const t = prev[i];
-      const change = Math.random() < 0.5 ? "status" : "priority";
-
-      const updated = {
-        ...t,
-        updatedAt: new Date().toISOString(),
-        ...(change === "status"
-          ? { status: nextIn(statusSeq, t.status) }
-          : { priority: nextIn(prioritySeq, t.priority) }),
-      };
-
-      const copy = [...prev];
-      copy[i] = updated;
-      return copy;
-    });
-  }, 7000);
-
-  return () => clearInterval(interval);
-}, []);
-
 export default function Board() {
-  const [tickets, setTickets] = useState([]);         
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
-  const [status, setStatus] = useState('All');         
-  const [priority, setPriority] = useState('All');    
-  const [query, setQuery] = useState('');              
-  const [queue, setQueue] = useState([]);        
+  const [tickets, setTickets]   = useState([]);     
+  const [loading, setLoading]   = useState(true);  
+  const [error, setError]       = useState('');    
+
+  const [status, setStatus]     = useState('All');  
+  const [priority, setPriority] = useState('All');  
+  const [query, setQuery]       = useState('');    
+
+
+  const [queue, setQueue]       = useState({});
+
 
   useEffect(() => {
     let cancelled = false;
@@ -77,6 +47,43 @@ export default function Board() {
     return () => { cancelled = true; };
   }, []);
 
+
+  useEffect(() => {
+    const statusSeq   = ['Open', 'In Progress', 'On Hold', 'Resolved'];
+    const prioritySeq = ['Low', 'Medium', 'High', 'Critical'];
+
+    const nextIn = (arr, cur) => {
+      const i = arr.indexOf(cur);
+      return arr[(i + 1) % arr.length];
+    };
+
+    const interval = setInterval(() => {
+      setTickets(prev => {
+        if (!prev.length) return prev;
+
+
+        const i = Math.floor(Math.random() * prev.length);
+        const t = prev[i];
+        const change = Math.random() < 0.5 ? 'status' : 'priority';
+
+        const updated = {
+          ...t,
+          updatedAt: new Date().toISOString(),
+          ...(change === 'status'
+            ? { status: nextIn(statusSeq, t.status) }
+            : { priority: nextIn(prioritySeq, t.priority) }),
+        };
+
+        const copy = [...prev];
+        copy[i] = updated;
+        return copy;
+      });
+    }, 7000); 
+
+    return () => clearInterval(interval);
+  }, []);
+
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return tickets.filter(t => {
@@ -87,24 +94,35 @@ export default function Board() {
     });
   }, [tickets, status, priority, query]);
 
+  const queuedTickets = useMemo(
+    () => tickets.filter(t => queue[t.id]),
+    [tickets, queue]
+  );
+
+  const isEmpty = !loading && !error && filtered.length === 0;
+
   function addToQueue(id) {
-    setQueue(prev => prev.includes(id) ? prev : [...prev, id]);
-  }
-  function removeFromQueue(id) {
-    setQueue(prev => prev.filter(x => x !== id));
+    setQueue(prev => ({ ...prev, [id]: true }));
   }
 
-  const message = loading
-    ? 'Loading tickets…'
-    : error
-    ? error
-    : `${filtered.length} of ${tickets.length} tickets shown`;
+  function removeFromQueue(id) {
+    setQueue(prev => {
+      const { [id]: _omit, ...rest } = prev;
+      return rest;
+    });
+  }
+
+  function clearQueue() {
+    setQueue({});
+  }
 
   return (
     <section>
       <h1 className="text-2xl font-semibold mb-2">Helpdesk Ticket Board</h1>
 
-      <StatusMessage message={message} />
+
+      <StatusMessage loading={loading} error={error} isEmpty={isEmpty} />
+
 
       <div className="flex gap-3 items-center my-3">
         <StatusFilter value={status} onChange={setStatus} />
@@ -112,10 +130,13 @@ export default function Board() {
         <SearchBox value={query} onChange={setQuery} placeholder="Search tickets…" />
       </div>
 
+
       <MyQueueSummary
-        count={queue.length}
-        onClear={() => setQueue([])}
+        items={queuedTickets}
+        onRemove={removeFromQueue}
+        onClear={clearQueue}
       />
+
 
       <TicketList
         tickets={filtered}
@@ -126,4 +147,3 @@ export default function Board() {
     </section>
   );
 }
-
