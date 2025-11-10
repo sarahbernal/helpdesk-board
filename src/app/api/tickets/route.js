@@ -15,7 +15,7 @@ export async function GET() {
       description: 'Outlook app fails to sync new messages on iOS.',
       priority: 'Medium',
       status: 'In Progress',
-      assignee: 'Alex Chen',
+      assignee: 'Alexandra Menendez',
       updatedAt: '2025-11-01T09:12:00Z'
     },
     {
@@ -33,7 +33,7 @@ export async function GET() {
       description: 'User locked out after multiple failed attempts.',
       priority: 'Medium',
       status: 'Resolved',
-      assignee: 'Service Desk',
+      assignee: 'Dominic Marshall',
       updatedAt: '2025-11-03T08:45:00Z'
     },
     {
@@ -42,7 +42,7 @@ export async function GET() {
       description: 'Network printer intermittently disappears from list.',
       priority: 'High',
       status: 'On Hold',
-      assignee: 'Priya Patel',
+      assignee: 'Oscar Mayer',
       updatedAt: '2025-11-04T10:05:00Z'
     },
     {
@@ -51,7 +51,7 @@ export async function GET() {
       description: 'User stuck in repeated MFA challenge when logging in.',
       priority: 'Critical',
       status: 'In Progress',
-      assignee: 'Jordan Lee',
+      assignee: 'Ally Barstal',
       updatedAt: '2025-11-05T16:22:00Z'
     },
     {
@@ -78,7 +78,7 @@ export async function GET() {
       description: 'Provision accounts and laptop for new analyst.',
       priority: 'Medium',
       status: 'In Progress',
-      assignee: 'Service Desk',
+      assignee: 'Sasha Cruller',
       updatedAt: '2025-11-07T09:00:00Z'
     },
     {
@@ -87,7 +87,7 @@ export async function GET() {
       description: 'Push notifications arrive several minutes late.',
       priority: 'Low',
       status: 'On Hold',
-      assignee: 'Alex Chen',
+      assignee: 'Lily Droller',
       updatedAt: '2025-11-07T12:25:00Z'
     },
     {
@@ -96,7 +96,7 @@ export async function GET() {
       description: 'Grant read-only access to reporting schema.',
       priority: 'Medium',
       status: 'Resolved',
-      assignee: 'DBA Queue',
+      assignee: 'Andrew Andaluz',
       updatedAt: '2025-11-08T08:00:00Z'
     },
     {
@@ -105,7 +105,7 @@ export async function GET() {
       description: 'SMB share fails with permissions error.',
       priority: 'High',
       status: 'In Progress',
-      assignee: 'Priya Patel',
+      assignee: 'Laura Lear',
       updatedAt: '2025-11-08T15:40:00Z'
     },
     {
@@ -114,7 +114,7 @@ export async function GET() {
       description: 'Impossible travel detected for user account.',
       priority: 'Critical',
       status: 'Open',
-      assignee: 'SecOps',
+      assignee: 'Xavier Bernal',
       updatedAt: '2025-11-09T02:17:00Z'
     },
     {
@@ -123,7 +123,7 @@ export async function GET() {
       description: 'Cable damaged; video cuts out intermittently.',
       priority: 'Low',
       status: 'Open',
-      assignee: 'Facilities',
+      assignee: 'Alessandro Meneses',
       updatedAt: '2025-11-09T10:12:00Z'
     }
   ];

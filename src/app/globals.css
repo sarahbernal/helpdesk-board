@@ -5,12 +5,6 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -23,4 +17,120 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 16px 0 24px;
+}
+.controls label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: #cbd5e1; 
+}
+.controls select,
+.controls input[type="text"] {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  background: #0b1220;
+  color: #e5e7eb;
+}
+
+.tickets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  border: 1px solid #334155;
+  background: #0b1220;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 2px 0 0 #1f2937 inset;
+}
+.card__meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.badge {
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #111827;
+  border: 1px solid #374151;
+  color: #e5e7eb;
+}
+.badge--pri-high { border-color: #ef4444; color: #fecaca; }
+.badge--pri-medium { border-color: #f59e0b; color: #fde68a; }
+.badge--pri-low { border-color: #22c55e; color: #bbf7d0; }
+.badge--status-open { border-color: #60a5fa; color: #dbeafe; }
+.badge--status-in-progress { border-color: #f59e0b; color: #fde68a; }
+.badge--status-on-hold { border-color: #a78bfa; color: #ede9fe; }
+.badge--status-resolved { border-color: #22c55e; color: #bbf7d0; }
+
+.card__title {
+  margin: 6px 0 4px;
+  font-weight: 700;
+}
+.card__desc {
+  color: #9ca3af;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+.card__details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 14px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+.card__details dt {
+  color: #9ca3af;
+}
+.card__details dd {
+  color: #e5e7eb;
+}
+
+.card__actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.btn {
+  display: inline-block;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.btn--primary {
+  background: #1d4ed8;
+  border-color: #1e40af;
+  color: white;
+}
+.btn--primary[disabled],
+.btn--primary[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.status-msg {
+  color: #9ca3af;
+  font-size: 0.95rem;
+  padding: 8px 0;
+}
+
+.queue-panel {
+  margin-top: 28px;
+  border-top: 1px solid #334155;
+  padding-top: 16px;
 }
